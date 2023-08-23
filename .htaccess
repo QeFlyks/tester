@@ -1,0 +1,15 @@
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+
+DirectoryIndex index.pl
+RewriteEngine On
+RewriteRule ^cpanel/$ admin.pl [L]
+RewriteRule ^cpanel/(.*)/$ admin.pl?action=$1 [L]
+RewriteRule ^index.php$ index.pl [L]
+
+RewriteCond %{REQUEST_URI} !^/index\.pl
+RewriteCond %{REQUEST_URI} (/[^.]*|\.(pl|html?|feed|pdf|raw))$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.pl [L,QSA]
